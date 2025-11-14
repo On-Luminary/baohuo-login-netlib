@@ -1,7 +1,7 @@
 const axios = require('axios');
 const { chromium } = require('playwright');
 
-const pushPlusToken = process.env.PUSH_PLUS_TOKEN; // PushPlus Token
+const pushPlusToken = process.env.PUSHPLUS_TOKEN; // 修改为 PUSHPLUS_TOKEN
 const accounts = process.env.ACCOUNTS;
 
 if (!accounts) {
@@ -30,7 +30,6 @@ async function sendPushPlus(message) {
   const hkTime = new Date(now.getTime() + (8 * 60 * 60 * 1000));
   const timeStr = hkTime.toISOString().replace('T', ' ').substr(0, 19) + " HKT";
 
-  // 构建PushPlus消息内容 [1,6](@ref)
   const title = `🎉 Netlib 登录通知`;
   const content = `
 登录时间：${timeStr}
@@ -45,7 +44,7 @@ ${message}
     token: pushPlusToken,
     title: title,
     content: content,
-    template: 'html' // 使用HTML模板，支持更丰富的格式 [2](@ref)
+    template: 'html'
   };
 
   try {
@@ -85,7 +84,6 @@ async function loginWithAccount(user, pass) {
     console.log(`📱 ${user} - 正在访问网站...`);
     await page.goto('https://www.netlib.re/', { waitUntil: 'networkidle' });
     
-    // 使用更智能的元素定位策略
     console.log(`🔑 ${user} - 寻找登录按钮...`);
     
     let loginButton;
