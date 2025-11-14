@@ -23,9 +23,8 @@ jobs:
       - name: Install Playwright and browser
         run: npx playwright install --with-deps chromium
 
-      - name: Run lognin script
+      - name: Run login script
         env:
-          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-          CHAT_ID: ${{ secrets.CHAT_ID }}
+          PUSHPLUS_TOKEN: ${{ secrets.PUSHPLUS_TOKEN }}
           ACCOUNTS: ${{ secrets.ACCOUNTS }}
-        run: npm start
+        run: node login.js
